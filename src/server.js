@@ -1,6 +1,6 @@
 import http from 'http';
-import { Database } from './database';
-import { json } from './middlewares/json.js'
+import { Database } from './database.js';
+import { json } from './middleware/json.js'
 
 const database = new Database();
 
@@ -27,6 +27,7 @@ const server = http.createServer( async (req, res) => {
         }
 
         database.insert('users', user);
+        return res.writeHead(201).end()
     }
 })
 

@@ -23,3 +23,9 @@ Utilizando streams você lê pedaço por pedaço, processando o conteúdo sem ma
   Request => neste caso podemos entender ele como uma ReadableSteam (eu consigo ler dados da requisição)
   Response => neste caso seria uma WritableStream (eu consigo escrever dados da requisição)
 
+## Trabalhando com arquivos físicos dentro do node
+### utlizamos o modulo interno do node de filesystem
+#### import fs from 'node:fs/promise'
+  <br> Utilizando o node com a configuração com (type: module), a melhor forma de se utilizar diretorios é com uma classe que
+  o node dispõe chamada URL(), na assinatura dela voce pode enviar dois arquivos como paramentro, o primeiro coloca o nome do arquivo que quer criar e o segundo o caminho relativo (import.meta.url)
+
