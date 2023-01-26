@@ -19,3 +19,7 @@ Utilizando streams você lê pedaço por pedaço, processando o conteúdo sem ma
 
 #### No node toda porta de entrada/saída é uma stream
 
+#### Request e Response  no node são streams
+  Request => neste caso podemos entender ele como uma ReadableSteam (eu consigo ler dados da requisição)
+  Response => neste caso seria uma WritableStream (eu consigo escrever dados da requisição)
+
