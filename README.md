@@ -29,3 +29,13 @@ Utilizando streams você lê pedaço por pedaço, processando o conteúdo sem ma
   <br> Utilizando o node com a configuração com (type: module), a melhor forma de se utilizar diretorios é com uma classe que
   o node dispõe chamada URL(), na assinatura dela voce pode enviar dois arquivos como paramentro, o primeiro coloca o nome do arquivo que quer criar e o segundo o caminho relativo (import.meta.url)
 
+## Existem 3 formas do frontend ou qualquer outra aplicação que esteja consumindo a api enviar informações para api.
+
+### Query Parameters: são parametros nomeados que se envia no proprio endereço da requisição.
+#### Ex: http://localhost:3333/users?userId=1 (userId é um query parameter e possui valor de 1 ), é utlizado quando se tem uma URL que é stateful => paginação, filtros ... (não pode ser utilizados para envio de informações sensiveis.)
+
+### Route Parameters: são parametros não nomeados que tambem ficam na rota.
+#### Ex: http://localhost:3333/users/1  (são utlizados normalmente para identificação de recurso), o método da rota ja identifica o proposito da rota, não pode ser utilizados para envio de informações sensiveis.
+
+### Request Body: Geralmente é utilizado para envio de informações de formulario, os dados enviados passam pelo protocolo HTTPs
+
