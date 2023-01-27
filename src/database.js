@@ -25,7 +25,7 @@ export class Database {
     
 
     select(table) {
-        const data = this.database[table] ?? [];
+        const data = this.#database[table] ?? [];
         return data;
     }
 
