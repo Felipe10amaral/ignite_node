@@ -1,10 +1,14 @@
 import fastify from "fastify";
+import { nex } from "./database";
 
 const server = fastify();
 
 
-server.get("/server", () => {
-    return "Hello ";
+server.get("/server", async () => {
+
+    const test = nex('sqlite_schema').select('*');
+    console.log(test);
+    return test;
 })
 
 server.listen({
