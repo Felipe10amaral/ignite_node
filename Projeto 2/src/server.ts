@@ -1,13 +1,17 @@
 import fastify from "fastify";
 import { nex } from "./database";
+import crypto from 'node:crypto';
 
 const server = fastify();
 
 
 server.get("/server", async () => {
 
-    const test = nex('sqlite_schema').select('*');
-    return test;
+   const transaction = await nex('transactions').select('*')
+
+   console.log(transaction)
+
+   return transaction
 })
 
 server.listen({
