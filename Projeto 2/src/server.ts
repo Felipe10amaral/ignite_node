@@ -1,18 +1,11 @@
 import fastify from "fastify";
 import { nex } from "./database";
 import { env } from "./env";
+import { registerTransactions } from "./routes/transaction";
 
 const server = fastify();
 
-
-server.get("/server", async () => {
-
-   const transaction = await nex('transactions').select('*')
-
-   console.log(transaction)
-
-   return transaction
-})
+server.register(registerTransactions)
 
 server.listen({
 port: env.PORT
