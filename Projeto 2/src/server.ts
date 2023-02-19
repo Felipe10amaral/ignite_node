@@ -1,6 +1,6 @@
 import fastify from "fastify";
 import { nex } from "./database";
-import crypto from 'node:crypto';
+import { env } from "./env";
 
 const server = fastify();
 
@@ -15,6 +15,6 @@ server.get("/server", async () => {
 })
 
 server.listen({
-port: 2000 
+port: env.PORT
 }).then(() => {console.log("Server is running on port 2000")
 })
