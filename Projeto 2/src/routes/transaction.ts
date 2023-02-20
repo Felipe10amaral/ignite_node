@@ -1,4 +1,4 @@
-import crypto from 'node:crypto'
+import crypto, { randomUUID } from 'node:crypto'
 import { FastifyInstance } from 'fastify'
 import { nex } from '../database'
 import { z } from 'zod'
@@ -6,18 +6,30 @@ import { z } from 'zod'
 export async function registerTransactions(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
     const createTransactions = z.object({
-      text: z.string(),
+      title: z.string(),
       amount: z.number(),
       type: z.enum(['credit', 'debit']),
     })
 
     // validando para saber se a requisição tem o mesmo padrão exigido pela api
-    const { text, amount, type } = createTransactions.parse(request.body)
+    const { title, amount, type } = createTransactions.parse(request.body)
+
+    let sessionId = request.cookies.sessionId
+
+    if (!sessionId) {
+      sessionId = randomUUID()
+
+      reply.setCookie('sessionId', sessionId, {
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
+      })
+    }
 
     await nex('transactions').insert({
       id: crypto.randomUUID(),
-      text,
+      title,
       amount: type === 'credit' ? amount : amount * -1,
+      session_id: sessionId,
     })
 
     return reply.code(201).send()
