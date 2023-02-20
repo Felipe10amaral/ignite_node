@@ -22,4 +22,26 @@ export async function registerTransactions(app: FastifyInstance) {
 
     return reply.code(201).send()
   })
+
+  app.get('/', async () => {
+    const dataTransactions = await nex('transactions').select('*')
+
+    return {
+      dataTransactions,
+    }
+  })
+
+  app.get('/:id', async (request) => {
+    const getTransactions = z.object({
+      id: z.string().uuid(),
+    })
+
+    const { id } = getTransactions.parse(request.params)
+
+    const dataTransactions = await nex('transactions').where('id', id).first()
+
+    return {
+      dataTransactions,
+    }
+  })
 }
