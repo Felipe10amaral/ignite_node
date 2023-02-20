@@ -44,4 +44,14 @@ export async function registerTransactions(app: FastifyInstance) {
       dataTransactions,
     }
   })
+
+  app.get('/summary', async () => {
+    const summary = await nex('transactions')
+      .sum('amount', { as: 'amount' })
+      .first()
+
+    return {
+      summary,
+    }
+  })
 }
