@@ -1,4 +1,5 @@
-import { afterAll, beforeAll, describe, it, expect } from 'vitest'
+import { afterAll, beforeAll, describe, it, expect, beforeEach } from 'vitest'
+import { execSync } from 'node:child_process'
 import request from 'supertest'
 import { app } from '../src/app'
 
@@ -9,6 +10,11 @@ describe('Transactions routes', () => {
 
   afterAll(async () => {
     await app.close()
+  })
+
+  beforeEach(() => {
+    execSync('yarn knex migrate:rollback --all') // a cada teste eu apago o banco e crio de novo
+    execSync('yarn knex migrate:latest') // esse processo toma mais tempo de processamento
   })
 
   it('should be able to create a new transaction', async () => {
